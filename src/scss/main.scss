@@ -1,0 +1,50 @@
+/* reset browser */
+@use 'reset';
+
+/* load browser breakpoint */
+@use '/node_modules/sass-mq/mq';
+
+/* load mixins */
+@use 'mixins' as mixins;
+
+/* Define root variables */
+:root {
+  /* font */
+  --font-family: 'Poppins', sans-serif;
+  --font-family-head: 'Mali', cursive;
+  --font-size: 1.6rem;
+  --line-height: 1;
+
+  /* Custom colors */
+  --color-bg: linear-gradient(225deg, hsl(162deg 87% 94%) 0%, hsl(312deg 100% 95%) 100%);
+  --color-btn: linear-gradient(225deg, hsl(188deg 100% 57%) 0%, hsl(205deg 77% 50%) 47.87%, hsl(243deg 35% 53%) 100%);
+  --color-logo-bg: hsl(212deg 100% 97%);
+
+  /* Widely used colors */
+  --color-main: hsl(213deg 80% 48%);
+  --color-main-dim: hsl(212deg 59% 64%);
+  --color-main-dimmer: hsl(212deg 100% 81%);
+  --color-white: white;
+  --color-dark: black;
+  --color-dark-alt: hsl(0deg 0% 13%);
+  --color-dark-dim: hsl(0deg 0% 17%);
+  --color-dark-dimmer: hsl(0deg 0% 23%);
+
+  /* Defaults */
+  position: relative;
+}
+
+/* Scrollbar customization */
+@include mixins.scrollbar(var(--color-white), var(--color-white), 0, 1px);
+
+body {
+  display: flex;
+  padding: 40px;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+  flex-direction: column;
+  box-sizing: border-box;
+  text-rendering: optimizelegibility;
+  background-color: var(--color-bg);
+}
