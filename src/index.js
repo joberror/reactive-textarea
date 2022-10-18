@@ -8,7 +8,7 @@ app.get("/", (req, res) => {
 	res.sendFile(path.join(__dirname, "pages/index.html"));
 });
 
-app.use("/assets", express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "../public/")));
 
 app.listen(PORT, () => {
 	console.log(`App running on port ${PORT}`);

@@ -2,10 +2,15 @@
 @use 'reset';
 
 /* load browser breakpoint */
-@use '/node_modules/sass-mq/mq';
+@use '../../node_modules/sass-mq/mq';
 
 /* load mixins */
 @use 'mixins' as mixins;
+
+/* load animation */
+@use 'animate' as animate;
+
+$size: 24px;
 
 /* Define root variables */
 :root {
@@ -19,6 +24,7 @@
   --color-bg: linear-gradient(225deg, hsl(162deg 87% 94%) 0%, hsl(312deg 100% 95%) 100%);
   --color-btn: linear-gradient(225deg, hsl(188deg 100% 57%) 0%, hsl(205deg 77% 50%) 47.87%, hsl(243deg 35% 53%) 100%);
   --color-logo-bg: hsl(212deg 100% 97%);
+  --color-shadow: hsl(216deg 56% 67%);
 
   /* Widely used colors */
   --color-main: hsl(213deg 80% 48%);
@@ -32,6 +38,8 @@
 
   /* Defaults */
   position: relative;
+  font-size: 62.5%;
+  height: 100%;
 }
 
 /* Scrollbar customization */
@@ -46,5 +54,309 @@ body {
   flex-direction: column;
   box-sizing: border-box;
   text-rendering: optimizelegibility;
-  background-color: var(--color-bg);
+  background: var(--color-bg);
+  height: 100%;
+
+  /* Header */
+  header {
+    ul {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+
+      li {
+        &:first-of-type {
+          display: inline-block;
+          padding: 6px 16px 16px 8px;
+          background-color: var(--color-logo-bg);
+          border: 1px solid var(--color-main-dimmer);
+          border-radius: 6px;
+
+          a {
+            color: var(--color-main);
+            font-family: var(--font-family-head);
+            font-size: 2rem;
+            font-weight: 600;
+
+            span {
+              color: var(--color-dark);
+              font-size: 1.4rem;
+            }
+
+            &:hover {
+              color: darken(hsl(213deg 80% 48%), 20%);
+
+              span {
+                color: var(--color-main);
+              }
+            }
+          }
+        }
+
+        &:last-of-type {
+          padding-left: 14px;
+          padding-bottom: 12px;
+          font-weight: 800;
+          color: var(--color-main-dim);
+        }
+      }
+    }
+  }
+
+  /* Content */
+  section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+
+    > p {
+      margin-top: 30px;
+      text-align: center;
+
+      a {
+        color: var(--color-main);
+        text-decoration: dashed;
+        font-weight: 600;
+
+        &:hover {
+          color: var(--color-main-dim);
+        }
+      }
+    }
+
+    .info-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h1 {
+        font-weight: 800;
+        @include mixins.interpolate("font-size", 360px, 14px, 1920px, 42px, "ease-in-ease-out", 10);
+      }
+
+      p {
+        margin-top: 14px;
+        text-align: center;
+        @include mixins.interpolate("font-size", 360px, 14px, 1920px, 28px,  "ease-in-ease-out", 10);
+
+        a {
+          display: inline-block;
+          margin: 30px 0 40px;
+          padding: 14px;
+          color: var(--color-white);
+          background: linear-gradient(0deg, #1E3C72 0%, #2A5298 100%);
+          border: 1px solid var(--color-main-dim);
+          border-radius: 6px;
+          transition: background 2s ease-in;
+          @include mixins.interpolate("font-size", 360px, 16px, 1920px, 20px,  "ease-in-ease-out", 10);
+
+          &:hover {
+            background: #2A5298;
+            transition: background 2s ease-out;
+          }
+        }
+      }
+    }
+
+    .main {
+      display: flex;
+      flex-direction: row;
+
+      .pagination {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 150px;
+
+        li {
+          margin-bottom: 30px;
+        }
+
+        a {
+          display: inline-block;
+          @include mixins.interpolate("font-size", 360px, 14px, 1920px, 24px);
+
+          .number {
+            display: inline-block;
+            margin-bottom: 12px;
+            margin-left: 5px;
+            font-weight: 700;
+            color: var(--color-main);
+            transition: color .5s linear;
+          }
+
+          hr {
+            display: inline-block;
+            width: 1px;
+            height: 0;
+            border: 1px solid var(--color-main-dimmer);
+            transition: height 1s ease-out;
+          }
+
+          .info {
+            opacity: 0;
+            visibility: hidden;
+            height: 0;
+            transition: opacity 1s 2s ease-out;
+          }
+
+          &:hover {
+            .number {
+              color: var(--color-main-dimmer);
+              transition: color .5s linear;
+            }
+          }
+
+          &.active {
+            hr {
+              height: 100px;
+              transition: height 1s 1s ease-in;
+            }
+
+            .number {
+              color: var(--color-main-dim);
+            }
+
+            .info {
+              opacity: 1;
+              visibility: visible;
+              height: auto;
+              transition: opacity 1s 2s ease-in, height 1s;
+            }
+          }
+        }
+      }
+
+      .example-list {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+
+        .wrapper {
+          display: flex;
+          flex-flow: row nowrap;
+          background-color: var(--color-dark);
+          box-shadow: 4px 8px 50px var(--color-shadow);
+          border-radius: 12px;
+          box-sizing: border-box;
+          margin-right: 150px;
+          overflow: hidden;
+          @include mixins.interpolate("height", 640px, 294px, 1080px, 496px);
+          @include mixins.interpolate("width", 360px, 280px, 1920px, 960px);
+
+          > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 100%;
+            height: 100%;
+            padding: 32px 18px 20px;
+            color: white;
+            flex-shrink: 0;
+
+            &.hide {
+              display: none;
+            }
+          }
+
+          textarea {
+            width: 90%;
+            align-self: center;
+            color: var(--color-white);
+            flex-grow: 1;
+            line-height: 1.5;
+            @include mixins.interpolate("font-size", 360px, 14px, 1920px, 28px);
+
+            &::placeholder {
+              color: var(--color-dark-dimmer);
+            }
+          }
+
+          .bottom-bar {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            padding: 20px;
+            border-radius: 6px;
+            align-items: center;
+            background-color: var(--color-dark-dimmer);
+
+            hr {
+              flex-grow: 1; /* Fill up the remaining space */
+              display: inline-block;
+              margin: 0 20px;
+            }
+          }
+
+          .bar-def {
+            justify-content: space-between;
+
+            hr {
+              height: 2px;
+              border: 2px solid var(--color-white);
+            }
+
+            span {
+              font-weight: 600;
+              font-size: 2.4rem;
+            }
+          }
+
+          .bar-cus {
+            hr {
+              height: 1px;
+              border: 1px solid var(--color-white);
+
+              &.dark {
+                border-color: var(--color-dark-dimmer);
+              }
+            }
+
+            em {
+              font-weight: 600;
+              color:grey;
+            }
+          }
+
+          .progress-pie-chart {
+            width: $size;
+            height: $size;
+            border-radius: 50%;
+            background-color: #E5E5E5;
+            position: relative;
+
+            &.gt-50 {
+              background-color: #ffb1b1;
+            }
+          }
+
+          .ppc-progress {
+            @include mixins.circle($size);
+
+            clip: rect(0, $size, $size, #{$size/2});
+
+            .ppc-progress-fill {
+              @include mixins.circle($size);
+
+              clip: rect(0, #{$size/2}, $size, 0);
+              background: #1e6bfa;
+              transform: rotate(0deg);
+            }
+
+            .gt-50 & {
+              clip: rect(0, #{$size/2}, $size, 0);
+
+              .ppc-progress-fill {
+                clip: rect(0, $size, $size, #{$size/2});
+                background: #E5E5E5;
+              }
+            }
+          }
+        }
+
+      }
+    }
+
+
+  }
 }

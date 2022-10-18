@@ -1,6 +1,6 @@
 {
   "name": "reactive-textarea",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Textarea element reacts to input and perform some sets of task",
   "main": "src/index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "author": "Olakunle Bolarinwa (Joberror)",
   "license": "MIT",
   "devDependencies": {
-    "nodeman": "^1.1.2",
+    "nodemon": "^2.0.20",
     "sass-mq": "^6.0.0",
     "stylelint": "^14.12.1",
     "stylelint-config-prettier": "^9.0.3",

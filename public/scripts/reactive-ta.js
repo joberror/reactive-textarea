@@ -1,6 +1,6 @@
 /**
  * A textarea element plugin to count, limit and trigger a function
-* @interface
+ * @interface
  */
 let reactiveTextArea = (() => {
 	/**
@@ -8,119 +8,179 @@ let reactiveTextArea = (() => {
 	 * @namespace
 	 */
 	let defaults = {
-		/**
-		 * Textarea element to attach to
-		 * @type {Object}
-		 */
-		el: '',
-		/**
-		 * Text limit allowed
-		 * @type {Number}
-		 */
-		limit: 100,
-		/**
-		 * Words not allowed
-		 * @type {string | null}
-		 */
-		words: null,
-		/**
-		 * Enable strictness
-		 * @type {boolean}
-		 */
-		strict: false,
-		/**
-		 * An optional function to call
-		 * @type {Object}
-		 */
-		fn: null,
-		rules: (e) => Object.assign(defaults, e),
-	};
-
-	/**
-	 * @type {{total: (function(): number), rem: (function(*): *)}}
-	 */
-	let update = {
-		total: () =>
-			(document.querySelector(".txtLimit").innerHTML = defaults.limit),
-		counter: (val) => (document.querySelector(".txtCounter").innerHTML = val),
-		rem: (val) => (document.querySelector(".txtRem").innerHTML = val),
-	};
-
-	let call = {
-		fn: (callback, args) => {
-			if (typeof callback == "function") {
-				callback(args);
-			}
+			/**
+			 * Textarea element to attach to
+			 * @type {Object}
+			 * @example document.querySelector('textarea')
+			 */
+			el: "",
+			/**
+			 * Text limit allowed
+			 * @type {Number}
+			 */
+			limit: 200,
+			/**
+			 * Words not allowed
+			 * @type {string | null}
+			 * @example mad|fool|sad|shit
+			 */
+			unAllowed: null,
+			/**
+			 * Enable strictness on word filtering
+			 * @type {boolean}
+			 */
+			strict: false,
+			/**
+			 * An optional function to call
+			 * @type {Object}
+			 */
+			customFunc: null,
+			/**
+			 * Class to set remainder
+			 * @type {string}
+			 * @example 'span .remainder'
+			 */
+			remClass: null,
+			/**
+			 * Class to set total
+			 * @type {string}
+			 * @example 'span .total'
+			 */
+			totalClass: null,
+			/**
+			 * Class to current position
+			 * @type {string}
+			 * @example 'span .current-no'
+			 */
+			currClass: null,
+			rules: (e) => Object.assign(defaults, e),
 		},
-	};
-
-	let fn = {
-		reg: {
-			strict: "",
-			nStrict: "",
+		// filtered words count variable
+		filterCount = 0,
+		/**
+		 * Helpers
+		 * @type {{total: (function(): number), rem: (function(*): *)}}
+		 */
+		update = {
+			total: () => {
+				if (defaults.totalClass)
+					document.querySelector(defaults.totalClass).innerHTML =
+						defaults.limit;
+			},
+			/**
+			 * A function to set current position
+			 * @param {Number} val
+			 */
+			counter: (val) => {
+				if (defaults.currClass)
+					document.querySelector(defaults.currClass).innerHTML = val;
+			},
+			/**
+			 * A function to set remaining value
+			 * @param {Number} val
+			 */
+			rem: (val) => {
+				if (defaults.remClass)
+					document.querySelector(defaults.remClass).innerHTML = val;
+			},
 		},
-
-		init: () => {
-			let filters = defaults.words,
-				el = defaults.el,
-				nsFilter;
-
-			nsFilter =
-				"(?:(^|[^a-z]))(([^a-z]*)(?=" + filters + ")" + filters + ")(?![a-z])";
-			fn.reg.strict = filters && new RegExp(filters, "gi"); // 'help|clear|what'
-			fn.reg.nStrict = new RegExp(nsFilter, "gi");
-			update.total();
-
-			if (el.tagName === "TEXTAREA") {
-				["input", "cut", "keypress", "paste", "blur"].forEach((e) =>
-					el.addEventListener(e, (ev) => {
-						fn.process(el, ev);
-					})
-				);
-			}
+		// Set up custom function
+		call = {
+			fn: (callback, args) => {
+				if (typeof callback == "function") {
+					callback(args);
+				}
+			},
 		},
+		fn = {
+			reg: {
+				strict: "",
+				nStrict: "",
+			},
 
-		process: (el, events) => {
-			let lt, calc, sp, elVal;
-			// If input is above limit, truncate.
-			el.value = el.value.substr(0, defaults.limit);
+			init: () => {
+				let filters = defaults.unAllowed,
+					el = defaults.el,
+					nsFilter;
 
-			// Filter words
-			if (events.code === "Space" || events.type === "blur") {
-				el.value = defaults.strict
-					? el.value.replace(fn.reg.strict, "")
-					: el.value.replace(fn.reg.nStrict, "");
-			}
+				nsFilter =
+					"(?:(^|[^a-z]))(([^a-z]*)(?=" +
+					filters +
+					")" +
+					filters +
+					")(?![a-z])";
 
-			elVal = el.value;
-			lt = elVal.length;
+				// Register filter words
+				fn.reg.strict = filters && new RegExp(filters, "gi");
+				fn.reg.nStrict = new RegExp(nsFilter, "gi");
+				update.total();
 
-			// set counter
-			update.counter(lt);
+				if (el.tagName === "TEXTAREA") {
+					["input", "cut", "keypress", "paste", "blur"].forEach((e) =>
+						el.addEventListener(e, (ev) => {
+							fn.process(el, ev);
+						})
+					);
+				}
+			},
 
-			// set reverse counter
-			update.rem(defaults.limit - lt);
+			/**
+			 *
+			 * @param {object} el
+			 * @param {event} events
+			 */
+			process: (el, events) => {
+				let lt,
+					pc,
+					wc,
+					elVal,
+					// Store old el value length
+					oldElVal = el.value.length;
+				// If input is above limit, truncate.
+				el.value = el.value.substr(0, defaults.limit);
 
-			// calculate percentage of total length
-			calc = (lt * 100) / defaults.limit;
+				// Filter words
+				if (events.code === "Space" || events.type === "blur") {
+					el.value = defaults.strict
+						? el.value.replace(fn.reg.strict, "")
+						: el.value.replace(fn.reg.nStrict, "");
+				}
 
-			// No Space
-			sp = elVal.replace(/\s/g, "").length;
+				elVal = el.value;
+				lt = elVal.length;
 
-			// Call custom functions with default arguments
-			call.fn(defaults.fn, {
-				events: events,
-				inputs: elVal,
-				percent: calc,
-				counter: lt,
-				nsCount: sp,
-			});
-		},
-	};
+				// count no of filtered words
+				if (oldElVal > lt) filterCount++;
+
+				// set counter
+				update.counter(lt);
+
+				// set reverse counter
+				update.rem(defaults.limit - lt);
+
+				// calculate percentage of total length
+				pc = parseInt((lt * 100) / defaults.limit);
+
+				// calculate no of words
+				wc = elVal.split(" ").filter((word) => word !== "").length;
+
+				// Call custom functions with default arguments
+				if (defaults.customFunc)
+					call.fn(defaults.customFunc, {
+						events: events, // Event type
+						inputs: elVal, // Current text
+						inputPercent: pc, // Percentage
+						noOfTexts: lt, // Updated text count
+						noOfWords: wc, // No of words typed
+						wordsFiltered: filterCount, // No of filtered words
+					});
+			},
+		};
 
 	return {
-		set: defaults.rules,
-		init: fn.init,
+		set: defaults.rules, // Set all options
+		init: fn.init, // Call to initialize
+		ver: 2.5, // Plugin version
 	};
 })();
 

@@ -1,16 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Mali:wght@600&family=Poppins:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/public/styles/main.css">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta
+			name="description"
+			content="An ES6 plugin for HTML textarea element to perform several task"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Mali:wght@600;700&family=Poppins:ital,wght@0,400;0,600;0,800;1,400;1,600&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="styles/main.css" type="text/css" />
 
-  <title>Reactive Textarea: ES6 Plugin</title>
-</head>
-<body>
-</body>
+		<title>Reactive Textarea: ES6 Plugin</title>
+	</head>
+	<body>
+		<header>
+			<!-- Logo -->
+			<ul>
+				<li>
+					<a href="/" title="Reactive textarea home page">
+						reactive <br />
+						textarea
+						<span>▐</span>
+					</a>
+				</li>
+				<!-- Version -->
+				<li class="version">v2.0</li>
+			</ul>
+		</header>
+		<section>
+			<!-- Project info -->
+			<div class="info-head">
+				<h1>An ES6 HTML textarea plugin that...</h1>
+				<p>
+					counts texts, filters words and triggers a function as you type.
+					<br />
+					<a
+						href="https://github.com/joberror/reactive-textarea"
+						title="Download the plugin on Github"
+						>Get on Github</a
+					>
+				</p>
+			</div>
+			<!-- Main: Example -->
+			<div class="main">
+				<!-- Pagination -->
+				<ul class="pagination">
+					<li>
+						<a href="#" title="Default setting" class="active" data-ex="0">
+							<hr />
+							<span class="number">1.</span> <br />
+							<span class="info">Default <br />settings</span>
+						</a>
+					</li>
+					<li>
+						<a href="#" title="How to filter words" data-ex="1">
+							<hr />
+							<span class="number">2.</span> <br />
+							<span class="info"
+								>Filter <br />
+								words</span
+							>
+						</a>
+					</li>
+					<li>
+						<a href="#" title="Call a custom function" data-ex="2">
+							<hr />
+							<span class="number">3.</span> <br />
+							<span class="info"
+								>Custom <br />
+								function</span
+							>
+						</a>
+					</li>
+				</ul>
+				<div class="example-list">
+					<div class="wrapper">
+						<!-- All Examples -->
+						<!-- Example 1 -->
+						<div class="example0">
+							<textarea
+								name="reactiveA"
+								placeholder="Type or paste text here to see the reaction..."
+								autofocus
+							></textarea>
+							<div class="bottom-bar bar-def">
+								<span class="countA">0</span>
+								<hr />
+								<span class="totalA">0</span>
+							</div>
+						</div>
+						<!-- Example 2 -->
+						<div class="example1 hide">
+							<textarea
+								name="reactiveB"
+								placeholder="Built-in word filter feature. Type any of 'fool|mad|hoe|stupid' word to see it in action"
+								autofocus
+							></textarea>
+							<div class="bottom-bar bar-def">
+								<span class="countB">0</span>
+								<hr />
+								<span class="totalB">0</span>
+							</div>
+						</div>
+						<!-- Example 3 -->
+						<div class="example2 hide">
+							<textarea
+								name="reactiveC"
+								placeholder="Custom function exposes many features of this plugin. Percentage, no of words & filtered words, events, etc."
+								autofocus
+							></textarea>
+							<div class="bottom-bar bar-cus">
+								<em>left: &nbsp;</em>
+								<span class="remC">200</span>
+								<hr class="dark" />
+								<em>word: &nbsp;</em>
+								<span class="wordC">0</span>
+								<hr />
+								<em>filter: &nbsp;</em>
+								<span class="filterC">0</span>
+								<hr class="dark" />
+								<div class="progress-pie-chart" data-percent="0">
+									<div class="ppc-progress">
+										<div class="ppc-progress-fill"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- More info -->
+			<p>
+				Please use the <a href="https://github.com/joberror/reactive-textarea" title="README on Github">README</a> for code guide and info on how to use the plugin.
+			</p>
+		</section>
+
+		<script type="module" src="scripts/main.js"></script>
+	</body>
 </html>

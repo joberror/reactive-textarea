@@ -1,9 +1,9 @@
 /* Mixins: This file should include all your mixins. */
 
 /* -- Scrollbar @mixin
-      Beautify the scrollbar with this Snippet
-      URL: https://alligator.io/css/css-scrollbars/
-      eg: @include scrollbar(#000, #222, 10px, 2px)
+	Beautify the scrollbar with this Snippet
+	URL: https://alligator.io/css/css-scrollbars/
+	eg: @include scrollbar(#000, #222, 10px, 2px)
 */
 @mixin scrollbar ($thumb-color, $track-color, $thumb-radius, $thumb-border-w) {
   * {
@@ -125,7 +125,7 @@ Issues:
 	} @else {
 
 		/* Loop through bending points  */
-		$t: 1 / ($bending-points + 1);
+		$t: calc(1 / ($bending-points + 1));
 		$i:1;
 		$prev-screen: $min-screen;
 		$prev-value: $min-value;
@@ -153,16 +153,16 @@ Issues:
 }
 
 /*
-Requires several helper functions including: pow, calc-interpolation, cubic-bezier, number and explode
+	Requires several helper functions including: pow, calc-interpolation, cubic-bezier, number and explode
 
-Math functions:
+	Math functions:
 
-Linear interpolations in CSS as a Sass function
-Author: Mike Riethmuller | https://madebymike.com.au/writing/precise-control-responsive-typography/ I
+	Linear interpolations in CSS as a Sass function
+	Author: Mike Riethmuller | https://madebymike.com.au/writing/precise-control-responsive-typography/ I
 */
 
 @function calc-interpolation($min-screen, $min-value, $max-screen, $max-value) {
-	$a: ($max-value - $min-value) / ($max-screen - $min-screen);
+	$a: calc(($max-value - $min-value) / ($max-screen - $min-screen));
 	$b: $min-value - $a * $min-screen;
 
 	$sign: "+";
@@ -181,7 +181,7 @@ This is a crude Sass port webkit cubic-bezier function. Looking to simplify this
 
 		$cx: 3.0 * $p1x;
 		$bx: 3.0 * ($p2x - $p1x) - $cx;
-		$ax: 1.0 - $cx -$bx;
+		$ax: 1.0 - $cx - $bx;
 
 		$t0: 0.0;
 		$t1: 1.0;
@@ -214,18 +214,16 @@ This is a crude Sass port webkit cubic-bezier function. Looking to simplify this
 }
 
 /*
-A straight up lerp
-Credit: Ancient Greeks possibly Hipparchus of Rhodes
+	A straight up lerp
+	Credit: Ancient Greeks possibly Hipparchus of Rhodes
 */
 @function lerp($a, $b, $t) {
 	@return $a + ($b - $a) * $t;
 }
 
-/*
-String functions:
-
-Cast string to number
-Credit: Hugo Giraudel | https://www.sassmeister.com/gist/9fa19d254864f33d4a80
+/* -- String functions:
+	Cast string to number
+	Credit: Hugo Giraudel | https://www.sassmeister.com/gist/9fa19d254864f33d4a80
 */
 @function number($value) {
 	@if type-of($value) == 'number' {
@@ -252,7 +250,7 @@ Credit: Hugo Giraudel | https://www.sassmeister.com/gist/9fa19d254864f33d4a80
 			$result: $result * 10 + map-get($numbers, $character);
 		} @else {
 			$digits: $digits * 10;
-			$result: $result + map-get($numbers, $character) / $digits;
+			$result: $result + calc(map-get($numbers, $character) / $digits);
 		}
 	}
 
@@ -260,8 +258,8 @@ Credit: Hugo Giraudel | https://www.sassmeister.com/gist/9fa19d254864f33d4a80
 }
 
 /*
-Explode a string by a delimiter
-Credit: https://gist.github.com/danielpchen/3677421ea15dcf2579ff
+	Explode a string by a delimiter
+	Credit: https://gist.github.com/danielpchen/3677421ea15dcf2579ff
 */
 @function explode($string, $delimiter) {
 	$result: ();
@@ -290,4 +288,17 @@ Credit: https://gist.github.com/danielpchen/3677421ea15dcf2579ff
 		}
 	}
 	@return $result;
+}
+
+/*--Circle Mixin
+  Draw a circle
+*/
+@mixin circle($size) {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  left: calc(50% - #{$size/2});
+  top: calc(50% - #{$size/2});
+  width: $size;
+  height: $size;
 }

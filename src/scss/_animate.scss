@@ -1,0 +1,61 @@
+@mixin keyframes($animation, $values...) {
+  @if($animation == 'fade') {
+    @keyframes #{$animation} {
+      to {
+        opacity: 1;
+      }
+    }
+  }
+  @if($animation == 'width') {
+    @keyframes #{$animation} {
+      to {
+        width: $values;
+      }
+    }
+  }
+  @if($animation == 'height') {
+    @keyframes #{$animation} {
+      to {
+        height: $values;
+      }
+    }
+  }
+  @if($animation == 'show') {
+    @keyframes #{$animation} {
+      to {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+  @if($animation == 'blink') {
+    @keyframes #{$animation} {
+      0% {
+        opacity: 0;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+  }
+  @if($animation == 'color-rush') {
+    @keyframes #{$animation} {
+      25% {
+        color: nth($values, 1);
+      }
+
+      50% {
+        color: nth($values, 2);
+      }
+
+      75% {
+        color: nth($values, 3);
+      }
+
+      100% {
+        color: nth($values, 4);
+      }
+    }
+  }
+}
