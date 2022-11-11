@@ -40,19 +40,19 @@ let reactiveTextArea = (() => {
 			 * @type {string}
 			 * @example 'span .remainder'
 			 */
-			remClass: null,
+			remCount: null,
 			/**
 			 * Class to set total
 			 * @type {string}
 			 * @example 'span .total'
 			 */
-			totalClass: null,
+			totalCount: null,
 			/**
 			 * Class to current position
 			 * @type {string}
 			 * @example 'span .current-no'
 			 */
-			currClass: null,
+			curCount: null,
 			rules: (e) => Object.assign(defaults, e),
 		},
 		// filtered words count variable
@@ -63,8 +63,8 @@ let reactiveTextArea = (() => {
 		 */
 		update = {
 			total: () => {
-				if (defaults.totalClass)
-					document.querySelector(defaults.totalClass).innerHTML =
+				if (defaults.totalCount)
+					document.querySelector(defaults.totalCount).innerHTML =
 						defaults.limit;
 			},
 			/**
@@ -72,16 +72,16 @@ let reactiveTextArea = (() => {
 			 * @param {Number} val
 			 */
 			counter: (val) => {
-				if (defaults.currClass)
-					document.querySelector(defaults.currClass).innerHTML = val;
+				if (defaults.curCount)
+					document.querySelector(defaults.curCount).innerHTML = val;
 			},
 			/**
 			 * A function to set remaining value
 			 * @param {Number} val
 			 */
 			rem: (val) => {
-				if (defaults.remClass)
-					document.querySelector(defaults.remClass).innerHTML = val;
+				if (defaults.remCount)
+					document.querySelector(defaults.remCount).innerHTML = val;
 			},
 		},
 		// Set up custom function
@@ -172,7 +172,7 @@ let reactiveTextArea = (() => {
 						inputPercent: pc, // Percentage
 						noOfTexts: lt, // Updated text count
 						noOfWords: wc, // No of words typed
-						wordsFiltered: filterCount, // No of filtered words
+						noOfWordsFiltered: filterCount, // No of filtered words
 					});
 			},
 		};

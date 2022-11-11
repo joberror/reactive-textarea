@@ -38,21 +38,21 @@ let allExConfig = [
 	{
 		limit: 150,
 		el: exampleA,
-		currClass: "span.countA",
-		totalClass: "span.totalA",
+		curCount: "span.countA",
+		totalCount: "span.totalA",
 	},
 	{
 		limit: 180,
 		el: exampleB,
-		currClass: "span.countB",
-		totalClass: "span.totalB",
+		curCount: "span.countB",
+		totalCount: "span.totalB",
 		unAllowed: "fool|mad|hoe|stupid",
 		strict: true,
 	},
 	{
 		limit: 200,
 		el: exampleC,
-		remClass: "span.remC",
+		remCount: "span.remC",
 		unAllowed: "fool|mad|hoe|stupid|fuck|idiot",
 		customFunc: logDetails,
 	},
@@ -62,7 +62,7 @@ let allExConfig = [
 // Custom function to call
 function logDetails(args) {
 	wordCounter.innerHTML = `${args.noOfWords}`;
-	filterWords.innerHTML = args.wordsFiltered;
+	filterWords.innerHTML = args.noOfWordsFiltered;
 
 	//
 	let percent = parseInt(args.inputPercent),
