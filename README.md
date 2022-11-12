@@ -32,7 +32,7 @@ Load the script through `script tag` or `module` option
 // OR
 
 <script type="module">
-    import { reactiveTextArea as reactive} from "./reactive-ta.min.js"
+    import { reactiveTextArea } from "./reactive-ta.min.js"
 </script>
 ```
 
@@ -46,7 +46,7 @@ Load the script through `script tag` or `module` option
     ```
 
     ```javascript
-    reactive.set({
+    reactiveTextArea.set({
         // set limit allowed
         limit: 120,
 
@@ -61,7 +61,7 @@ Load the script through `script tag` or `module` option
         // `totalCount`: displays total input allowed
     });
 
-    reactive.init();
+    reactiveTextArea.init();
     ```
 
 2. __Filter__ or restrict some words
@@ -74,7 +74,7 @@ Load the script through `script tag` or `module` option
     ```
 
     ```javascript
-    reactive.set({
+    reactiveTextArea.set({
         // set limit allowed
         limit: 100,
 
@@ -93,7 +93,7 @@ Load the script through `script tag` or `module` option
         strict: true,
     });
 
-    reactive.init();
+    reactiveTextArea.init();
     ```
 
 3. Explore the limitless through __Custom Function__
@@ -122,7 +122,7 @@ Load the script through `script tag` or `module` option
     ```
 
     ```javascript
-    reactive.set({
+    reactiveTextArea.set({
         // set limit allowed
         limit: 120,
 
@@ -139,7 +139,7 @@ Load the script through `script tag` or `module` option
         customFunc: logAll,
     });
 
-    reactive.init();
+    reactiveTextArea.init();
 
     // Custom function
 
