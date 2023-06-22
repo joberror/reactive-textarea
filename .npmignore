@@ -1,0 +1,10 @@
+node_modules/
+.idea/
+.vscode/
+.vscode-workspace/
+.log/
+.cache
+.output
+.env
+dist
+.history

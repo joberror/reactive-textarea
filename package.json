@@ -1,0 +1,31 @@
+{
+  "name": "@joberror/reactive-textarea",
+  "version": "3.0.0",
+  "description": "A plugin that enhances html <textarea> element",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joberror/reactive-textarea.git"
+  },
+  "keywords": [
+    "textarea",
+    "html-textarea",
+    "textarea-counter",
+    "es6-textarea-plugin",
+    "textarea-limit",
+    "textarea-filter",
+    "textarea-counter",
+    "reactive-textarea",
+    "es6-textarea",
+    "es6-plugin"
+  ],
+  "author": "Bolarinwa Olakunle",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joberror/reactive-textarea/issues"
+  },
+  "homepage": "https://github.com/joberror/reactive-textarea#readme"
+}
