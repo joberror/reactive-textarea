@@ -58,11 +58,11 @@ import { reactiveTextArea } from "@joberror/reactive-textarea"
         el: document.getElementsByTag('textarea'),
 
         // plugin helper
-        helpers: { currentEl: 'span' }
+        helpers: { curCountEl: 'span' }
 
-        // NB: there are 2 other counting helpers namely;
-        // `remainderEl`: displays remaining input value &
-        // `totalAllowedEl`: displays total input allowed
+        // NB: there are 2 other counting text/word helpers namely;
+        // `remCountEl`: displays remaining input value &
+        // `totalCountEl`: displays total input allowed
     });
 
     reactiveTextArea.init();
@@ -83,7 +83,7 @@ import { reactiveTextArea } from "@joberror/reactive-textarea"
         el: document.getElementsByTag('textarea'),
 
         // plugin helper
-        helpers: { filterCount: 'span' },
+        helpers: { filterCountEl: 'span' },
 
         // set list of words to filter with a pipe symbol
         screener: {
@@ -101,6 +101,7 @@ import { reactiveTextArea } from "@joberror/reactive-textarea"
 3. Explore the limitless through __Custom Function__
 
     ```html
+    <!--HTML -->
     <textarea name="reactiveA"></textarea>
     <div>
         <span>0</span>
@@ -110,6 +111,7 @@ import { reactiveTextArea } from "@joberror/reactive-textarea"
     ```
 
     ```css
+    /** CSS **/
     div {
         display: flex;
         flex-direction: row;
@@ -135,7 +137,7 @@ import { reactiveTextArea } from "@joberror/reactive-textarea"
         counter: true
 
         // helper
-        helpers: { remainderEl: 'span'}
+        helpers: { remCountEL: 'span'}
 
         // custom function to call
         callbackFunc: logAll,
