@@ -1,6 +1,6 @@
 # Reactive Textarea 🎉️
 
-A simple javascript module that made HTML textarea elements reacts to input to perform some task
+This plugin provides features such as text and word counting, filtering, and limiting when an input is made in an HTML textarea element.
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/joberror/reactive-textarea?style=for-the-badge) [![GitHub license](https://img.shields.io/github/license/joberror/reactive-textarea?style=for-the-badge)](https://github.com/joberror/reactive-textarea/blob/master/LICENSE)  ![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fjoberror%2Freactive-textarea%2F)
 
