@@ -10,14 +10,15 @@ This plugin provides features such as text and word counting, filtering, and lim
 * Filter
 * Limiter
 * Custom callback
-* Helpers
+* HTML class helpers
 
 ## Highlights
 
-* Callback rich arguments `noOfWordsFiltered`, `noOfWords`, `countInPercent`, etc
+* Callback rich arguments `noOfWordsFiltered`, `noOfInputsWords`, `inputsPercentage`, etc.
 * Better documentation and improved code.
-* Any features can be turned off or on.
+* Feature On / Off.
 * Supports module loading option.
+* A simple test page
 
 ## Installation
 
@@ -25,9 +26,9 @@ This plugin provides features such as text and word counting, filtering, and lim
 npm install -D @joberror/reactive-textarea
 ```
 
-## Example
+## Examples
 
-Load the script through `require` or `import module` option
+Load the script through `require` or `import` module option
 
 ```js
 const reactiveTextArea = require('reactive-textarea')
@@ -41,28 +42,26 @@ import { reactiveTextArea } from "@joberror/reactive-textarea"
 
     ```html
     <div>
-        <textarea name="reactiveA"></textarea>
-        <span></span>
+        <textarea></textarea>
+        <!-- Class helpers -->
+        <span class="reactiveTextArea_curCount"></span>
+        <span class="reactiveTextArea_remCount"></span>
+        <span class="reactiveTextArea_maxAllowed"></span>
     </div>
     ```
 
     ```javascript
-    reactiveTextArea.set({
+    reactiveTextArea.config({
         // Enable counting
-        counter: true
+        enableCounter: true
+        countOrLimitType: "word" // "text" or "word"
 
         // Enable and set limit
-        limiter: { on: true, max: 120 }
+        enableLimiter: true
+        maxAllowed: 90
 
         // set textarea element
-        el: document.getElementsByTag('textarea'),
-
-        // plugin helper
-        helpers: { curCountEl: 'span' }
-
-        // NB: there are 2 other counting text/word helpers namely;
-        // `remCountEl`: displays remaining input value &
-        // `totalCountEl`: displays total input allowed
+        element: document.querySelector('textarea')
     });
 
     reactiveTextArea.init();
@@ -72,27 +71,21 @@ import { reactiveTextArea } from "@joberror/reactive-textarea"
 
     ```html
     <div>
-        <textarea name="reactiveA"></textarea>
-        <span></span>
+        <textarea></textarea>
+        <!-- Class helpers -->
+        <span class="reactiveTextArea_filterCount"></span>
     </div>
     ```
 
     ```javascript
-    reactiveTextArea.set({
+    reactiveTextArea.config({
+        // Enable filter
+        enableFilter: true,
+        wordsToFilter: ["dumb", "shit"],
+        enableStrictFiltering: false
+
         // set textarea element
-        el: document.getElementsByTag('textarea'),
-
-        // plugin helper
-        helpers: { filterCountEl: 'span' },
-
-        // set list of words to filter with a pipe symbol
-        screener: {
-          words: 'fool|mad|hoe|stupid|dumb',
-          // Enable strict filtering
-          // eg. this will filter 'mad' from madagascar - be careful
-          // default is false
-          strict: true
-        }
+        element: document.querySelector('textarea')
     });
 
     reactiveTextArea.init();
@@ -102,7 +95,7 @@ import { reactiveTextArea } from "@joberror/reactive-textarea"
 
     ```html
     <!--HTML -->
-    <textarea name="reactiveA"></textarea>
+    <textarea></textarea>
     <div>
         <span>0</span>
         <!--- HR element progress in width as the user types -->
@@ -126,21 +119,25 @@ import { reactiveTextArea } from "@joberror/reactive-textarea"
     ```
 
     ```javascript
-    reactiveTextArea.set({
-        // set textarea element
-        el: document.getElementsByTag('textarea'),
+    reactiveTextArea.config({
+        // Enable counting
+        enableCounter: true
+        countOrLimitType: "text"
 
         // Enable and set limit
-        limiter: { on: true, max: 150 }
+        enableLimiter: true
+        maxAllowed: 120
 
-        // Enable counting
-        counter: true
+        // Enable filter
+        enableFilter: true,
+        wordsToFilter: ["mad", "stupid"],
+        enableStrictFiltering: true
 
-        // helper
-        helpers: { remCountEL: 'span'}
+        // Callback function
+        callbackFunc: logAll
 
-        // custom function to call
-        callbackFunc: logAll,
+        // set textarea element
+        element: document.querySelector('textarea')
     });
 
     reactiveTextArea.init();
@@ -150,21 +147,21 @@ import { reactiveTextArea } from "@joberror/reactive-textarea"
     let progress = document.querySelector('hr');
 
     function logAll(args) {
-        // This function is exposed to the following plugin helpers
+        // This function is exposed to the following helpers
 
-        // 1. `args.eventType`: current event name triggered (copy, paste, etc).
+        // 1. `args.events`: current event name triggered (copy, paste, etc).
         // 2. `args.inputs`: current texts in the textarea. (str)
-        // 3. `args.inputPercentage`: total texts count in percentage. (num)
-        // 4. `args.noOfTexts`: total texts count. (num)
+        // 3. `args.inputsPercentage`: total texts count in percentage. (num)
+        // 4. `args.inputsCount`: total texts count. (num)
         // 5. `args.noOfInputWords`: total words count. (num)
         // 6. `args.noOfInputTexts`: total text count. (num)
-        // 7. `args.noOfInputFiltered`: total filtered words. (num)
+        // 7. `args.noOWordsFiltered`: total filtered words. (num)
 
         // eg: log no of words typed
         console.log(args.noOfInputWords);
 
         // HR width gets altered based on the percentage.
-        Object.assign(progress.style, {width: args.inputPercentage + "%"})
+        Object.assign(progress.style, {width: args.inputsPercentage + "%"})
     }
     ```
 
@@ -172,6 +169,5 @@ import { reactiveTextArea } from "@joberror/reactive-textarea"
 
 * Adds more features
 * Bugs and performance fixes
-* Adds more examples.
 
 Please kindly follow me on twitter for updates. Thank you!

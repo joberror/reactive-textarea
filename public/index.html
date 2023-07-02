@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Tests</title>
+        <style>
+            div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            div > ul {
+                display: flex;
+                flex: row;
+            }
+
+            textarea {
+                width: 360px;
+                height: 240px;
+            }
+
+            ul > li {
+                list-style: none;
+                margin-right: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <textarea name="reactiveA"></textarea> <br />
+            <div>
+                <ul>
+                    <li>
+                        Count: &nbsp;
+                        <span class="reactiveTextArea_curCount"></span>
+                    </li>
+                    <li>
+                        Filter: &nbsp;
+                        <span class="reactiveTextArea_filterCount"></span>
+                    </li>
+                    <li>
+                        Rem: &nbsp;
+                        <span class="reactiveTextArea_remCount"></span>
+                    </li>
+                    <li>
+                        Max: &nbsp;
+                        <span class="reactiveTextArea_maxAllowed"></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <script type="module" src="test.js"></script>
+    </body>
+</html>
