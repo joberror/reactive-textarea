@@ -45,13 +45,13 @@ interface ReactiveTextAreaOptions {
 export declare let reactiveTextArea: {
     config: (options: object) => ReactiveTextAreaOptions & object;
     init: () => void;
-    version: string;
+    reset: () => void;
 };
 declare const _default: {
     reactiveTextArea: {
         config: (options: object) => ReactiveTextAreaOptions & object;
         init: () => void;
-        version: string;
+        reset: () => void;
     };
 };
 export default _default;

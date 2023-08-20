@@ -4,6 +4,12 @@ This plugin provides features such as text and word counting, filtering, and lim
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/joberror/reactive-textarea?style=for-the-badge) [![GitHub license](https://img.shields.io/github/license/joberror/reactive-textarea?style=for-the-badge)](https://github.com/joberror/reactive-textarea/blob/master/LICENSE)  ![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Fgithub.com%2Fjoberror%2Freactive-textarea%2F)
 
+## What's New
+
+* Added `args.maxAllowed` to callback function args.
+* Added `.reset()` feature to reset textarea and callbacks args
+* Improved README documentation
+
 ## Features
 
 * Counter
@@ -23,19 +29,22 @@ This plugin provides features such as text and word counting, filtering, and lim
 ## Installation
 
 ```shell
-npm install -D @joberror/reactive-textarea
+# NPM
+npm install -D @iamjoberror/reactive-textarea
+
+# Yarn
+yarn add -D @iamjoberror/reactive-textarea
 ```
 
 ## Examples
 
-Load the script through `require` or `import` module option
+Load the script through `import` module option
 
 ```js
-const reactiveTextArea = require('reactive-textarea')
+import { reactiveTextArea } from "@iamjoberror/reactive-textarea"
 
-// OR
-
-import { reactiveTextArea } from "@joberror/reactive-textarea"
+// Nuxt 3 approach: please follow the link below as an example on how to use it as a plugin
+// https://stackoverflow.com/a/74694711/245030
 ```
 
 1. __Limit__ and __Count__ text.
@@ -44,8 +53,11 @@ import { reactiveTextArea } from "@joberror/reactive-textarea"
     <div>
         <textarea></textarea>
         <!-- Class helpers -->
+        <!-- Current counter class -->
         <span class="reactiveTextArea_curCount"></span>
+        <!-- Remainder counter class -->
         <span class="reactiveTextArea_remCount"></span>
+        <!-- Maximum allowed texts or words class -->
         <span class="reactiveTextArea_maxAllowed"></span>
     </div>
     ```
@@ -72,7 +84,7 @@ import { reactiveTextArea } from "@joberror/reactive-textarea"
     ```html
     <div>
         <textarea></textarea>
-        <!-- Class helpers -->
+        <!-- No of filtered words count class -->
         <span class="reactiveTextArea_filterCount"></span>
     </div>
     ```
@@ -152,10 +164,11 @@ import { reactiveTextArea } from "@joberror/reactive-textarea"
         // 1. `args.events`: current event name triggered (copy, paste, etc).
         // 2. `args.inputs`: current texts in the textarea. (str)
         // 3. `args.inputsPercentage`: total texts count in percentage. (num)
-        // 4. `args.inputsCount`: total texts count. (num)
+        // 4. `args.inputsCount`: total count. (num)
         // 5. `args.noOfInputWords`: total words count. (num)
-        // 6. `args.noOfInputTexts`: total text count. (num)
-        // 7. `args.noOWordsFiltered`: total filtered words. (num)
+        // 6. `args.noOfInputTexts`: total texts count. (num)
+        // 7. `args.noOfWordsFiltered`: total filtered words. (num)
+        // 8. `args.maxAllowed`: max number of words or text allowed. (num)
 
         // eg: log no of words typed
         console.log(args.noOfInputWords);
@@ -170,4 +183,4 @@ import { reactiveTextArea } from "@joberror/reactive-textarea"
 * Adds more features
 * Bugs and performance fixes
 
-Please kindly follow me on twitter for updates. Thank you!
+Please kindly follow me on [twitter](https://twitter.com/iamjoberror) for updates. Thank you!

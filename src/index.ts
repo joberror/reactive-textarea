@@ -38,6 +38,7 @@ interface ReactiveTextAreaOptions {
     /** Set an optional function to be called, read more about this in the README file. */
     callbackFunc?: Function;
 }
+
 /**
  * A textarea element plugin to count, limit, filter and trigger a function
  * @interface
@@ -59,13 +60,14 @@ export let reactiveTextArea = (function () {
             callbackFunc: undefined,
         },
         callbackHelpers = {
-            events: "" as any,
+            events: Event.prototype,
             numOfInputTexts: 0,
             numOfInputWords: 0,
             inputs: "",
             inputsCount: 0,
             inputsPercentage: 0,
             numOfWordsFiltered: 0,
+            maxAllowed: defaults.maxAllowed,
         },
         // helper element cache
         helpers = {
@@ -79,7 +81,15 @@ export let reactiveTextArea = (function () {
             ),
         },
         // store textarea value before filtering
-        oldElValueLength = 0;
+        oldElValueLength = 0,
+        // shadow copy callback helpers
+        _callbackHelpers = { ...callbackHelpers };
+
+    function resetAll() {
+        defaults.element.value = "";
+        Object.assign(callbackHelpers, _callbackHelpers);
+        defaults.element.dispatchEvent(new Event('input', {bubbles: true}))
+    }
 
     function filterWordsFromString(
         inputString: string,
@@ -156,7 +166,7 @@ export let reactiveTextArea = (function () {
     function processFilter(el: HTMLTextAreaElement) {
         if (defaults.enableFilter) {
             if (
-                callbackHelpers.events.key === " " ||
+                callbackHelpers.events.type === "input" ||
                 callbackHelpers.events.type === "blur"
             )
                 el.value = defaults.enableStrictFiltering
@@ -196,7 +206,7 @@ export let reactiveTextArea = (function () {
             (defaults.enableCounter || defaults.enableLimiter)
         ) {
             // register event
-            ["input", "cut", "keyup", "paste", "blur"].forEach(function (e) {
+            ["input", "cut", "keyup", "paste", "blur", "change"].forEach(function (e) {
                 el.addEventListener(e, function (ev) {
                     callbackHelpers.events = ev;
                     processLimiter(el);
@@ -215,7 +225,7 @@ export let reactiveTextArea = (function () {
     return {
         config: (options: object) => Object.assign(defaults, options),
         init,
-        version: "1.0.0",
+        reset: resetAll,
     };
 })();
 

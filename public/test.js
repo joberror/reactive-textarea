@@ -12,4 +12,13 @@ reactiveTextArea.config({
     maxAllowed: 30,
     wordsToFilter: ["mad", "stupid"],
 });
+
+const button = document.querySelector("button");
+
+button.addEventListener("click", (event) => {
+    reactiveTextArea.reset();
+});
+
 reactiveTextArea.init();
+
+
