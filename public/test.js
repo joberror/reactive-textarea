@@ -11,6 +11,7 @@ reactiveTextArea.config({
     enableFilter: true,
     maxAllowed: 30,
     wordsToFilter: ["mad", "stupid"],
+    enableStrictFiltering: true
 });
 
 const button = document.querySelector("button");

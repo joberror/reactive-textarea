@@ -166,7 +166,7 @@ export let reactiveTextArea = (function () {
     function processFilter(el: HTMLTextAreaElement) {
         if (defaults.enableFilter) {
             if (
-                callbackHelpers.events.type === "input" ||
+                (callbackHelpers.events as KeyboardEvent).key === ' ' ||
                 callbackHelpers.events.type === "blur"
             )
                 el.value = defaults.enableStrictFiltering
@@ -206,7 +206,7 @@ export let reactiveTextArea = (function () {
             (defaults.enableCounter || defaults.enableLimiter)
         ) {
             // register event
-            ["input", "cut", "keyup", "paste", "blur", "change"].forEach(function (e) {
+            ["cut", "keyup", "paste", "blur", "change"].forEach(function (e) {
                 el.addEventListener(e, function (ev) {
                     callbackHelpers.events = ev;
                     processLimiter(el);
