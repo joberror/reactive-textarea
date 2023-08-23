@@ -88,7 +88,7 @@ export let reactiveTextArea = (function () {
     function resetAll() {
         defaults.element.value = "";
         Object.assign(callbackHelpers, _callbackHelpers);
-        defaults.element.dispatchEvent(new Event('input', {bubbles: true}))
+        defaults.element.dispatchEvent(new Event('blur', {bubbles: true}))
     }
 
     function filterWordsFromString(
