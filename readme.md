@@ -178,6 +178,18 @@ import { reactiveTextArea } from "@iamjoberror/reactive-textarea"
     }
     ```
 
+## Dev feature .reset()
+
+The `reactiveTextArea.reset()` can be used to reset the plugin output to default.
+
+```javascript
+// Resets callback args and helper classes to default
+reactiveTextArea.reset()
+
+// Defaults callback args and helper classes, then clears the textarea input.
+reactiveTextArea.reset(true)
+```
+
 ## What's Next
 
 * Adds more features

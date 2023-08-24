@@ -85,10 +85,15 @@ export let reactiveTextArea = (function () {
         // shadow copy callback helpers
         _callbackHelpers = { ...callbackHelpers };
 
-    function resetAll() {
+    function reset(all = false) {
+        const oldElValue = defaults.element.value;
         defaults.element.value = "";
         Object.assign(callbackHelpers, _callbackHelpers);
-        defaults.element.dispatchEvent(new Event('blur', {bubbles: true}))
+        defaults.element.dispatchEvent(new Event("blur", { bubbles: true }));
+
+        if (!all) {
+            defaults.element.value = oldElValue;
+        }
     }
 
     function filterWordsFromString(
@@ -166,7 +171,7 @@ export let reactiveTextArea = (function () {
     function processFilter(el: HTMLTextAreaElement) {
         if (defaults.enableFilter) {
             if (
-                (callbackHelpers.events as KeyboardEvent).key === ' ' ||
+                (callbackHelpers.events as KeyboardEvent).key === " " ||
                 callbackHelpers.events.type === "blur"
             )
                 el.value = defaults.enableStrictFiltering
@@ -225,7 +230,7 @@ export let reactiveTextArea = (function () {
     return {
         config: (options: object) => Object.assign(defaults, options),
         init,
-        reset: resetAll,
+        reset: reset,
     };
 })();
 

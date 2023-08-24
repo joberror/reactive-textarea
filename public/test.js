@@ -17,7 +17,7 @@ reactiveTextArea.config({
 const button = document.querySelector("button");
 
 button.addEventListener("click", (event) => {
-    reactiveTextArea.reset();
+    reactiveTextArea.reset(true);
 });
 
 reactiveTextArea.init();
